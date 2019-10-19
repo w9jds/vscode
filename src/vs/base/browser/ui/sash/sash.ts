@@ -42,6 +42,7 @@ export interface ISashOptions {
 	orientation?: Orientation;
 	orthogonalStartSash?: Sash;
 	orthogonalEndSash?: Sash;
+	size?: number;
 }
 
 export const enum Orientation {
@@ -62,6 +63,7 @@ export class Sash extends Disposable {
 	private layoutProvider: ISashLayoutProvider;
 	private hidden: boolean;
 	private orientation!: Orientation;
+	private size: number;
 
 	private _state: SashState = SashState.Enabled;
 	get state(): SashState { return this._state; }
@@ -150,6 +152,7 @@ export class Sash extends Disposable {
 		this.setOrientation(options.orientation || Orientation.VERTICAL);
 
 		this.hidden = false;
+		this.size = options.size || 4;
 		this.layoutProvider = layoutProvider;
 
 		this.orthogonalStartSash = options.orthogonalStartSash;
@@ -331,11 +334,12 @@ export class Sash extends Disposable {
 	}
 
 	layout(): void {
-		const size = isIPad ? 20 : 4;
+		const size = isIPad ? 20 : this.size;
 
 		if (this.orientation === Orientation.VERTICAL) {
 			const verticalProvider = (<IVerticalSashLayoutProvider>this.layoutProvider);
 			this.el.style.left = verticalProvider.getVerticalSashLeft(this) - (size / 2) + 'px';
+			this.el.style.width = `${size}px`;
 
 			if (verticalProvider.getVerticalSashTop) {
 				this.el.style.top = verticalProvider.getVerticalSashTop(this) + 'px';
@@ -347,6 +351,7 @@ export class Sash extends Disposable {
 		} else {
 			const horizontalProvider = (<IHorizontalSashLayoutProvider>this.layoutProvider);
 			this.el.style.top = horizontalProvider.getHorizontalSashTop(this) - (size / 2) + 'px';
+			this.el.style.height = `${size}px`;
 
 			if (horizontalProvider.getHorizontalSashLeft) {
 				this.el.style.left = horizontalProvider.getHorizontalSashLeft(this) + 'px';
