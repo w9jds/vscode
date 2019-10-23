@@ -97,6 +97,11 @@ import { isMacintosh, isWindows, isLinux, isWeb, isNative } from 'vs/base/common
 				'default': 'right',
 				'markdownDescription': nls.localize('sideBySideDirection', "Controls the default direction of editors that are opened side by side (e.g. from the explorer). By default, editors will open on the right hand side of the currently active one. If changed to `down`, the editors will open below the currently active one.")
 			},
+			'workbench.editor.sideBySideSashWidth': {
+				'type': 'number',
+				'description': nls.localize('sideBySideSashWidth', "Controls the width of the sash between editors"),
+				'default': 4
+			},
 			'workbench.editor.closeEmptyGroups': {
 				'type': 'boolean',
 				'description': nls.localize('closeEmptyGroups', "Controls the behavior of empty editor groups when the last tab in the group is closed. When enabled, empty groups will automatically close. When disabled, empty groups will remain part of the grid."),
